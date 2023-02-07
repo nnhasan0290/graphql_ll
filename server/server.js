@@ -3,6 +3,7 @@ const { graphqlHTTP } = require("express-graphql");
 
 const dotenv = require("dotenv");
 const { buildSchema } = require("graphql");
+const { schema } = require("./graphql");
 
 const app = express();
 dotenv.config({ path: "server/config/.env" });
@@ -10,15 +11,8 @@ dotenv.config({ path: "server/config/.env" });
 app.use(
   "/graph",
   graphqlHTTP({
-    schema: buildSchema(`
-    type Query{
-        hello: String
-    }
-    `),
-    rootValue: {
-      hello: () => "Hello world",
-    },
-    graphiql: true
+    schema: schema,
+    graphiql: true,
   })
 );
 
