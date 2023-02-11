@@ -6,6 +6,8 @@ const {
   GraphQLID,
   GraphQLList,
 } = require("graphql");
+const Project = require("../models/project.js");
+const Client = require("../models/client.js");
 
 const clientType = new GraphQLObjectType({
   name: "client",
@@ -33,11 +35,11 @@ const RootSchema = new GraphQLObjectType({
   fields: () => ({
     projects: {
       type: new GraphQLList(projectType),
-      resolve: () => projects,
+      resolve: () => Project.find(),
     },
     clients: {
       type: new GraphQLList(clientType),
-      resolve: () => clients,
+      resolve: () => Client.find(),
     },
     client: {
       type: clientType,
